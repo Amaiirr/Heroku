@@ -1,0 +1,58 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <title>Demo App</title>
+
+    <!-- Include app.css script from Vue build process -->
+    {% if environment == "production" %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+    {% endif %}
+
+  </head>
+
+  <body>
+
+    <noscript>
+        We're sorry but this website doesn't work without JavaScript.
+        Please enable it to continue.
+    </noscript>
+
+    <!-- CSRF Token to get past Django CSRF issues -->
+    {% csrf_token %}
+
+    <!-- Inject global variables from Django into the app -->
+    <script>
+      /* Retrieve the CSRF token value from above */
+      window.csrftoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
+      /* Global constants in window.globals. */
+      window.globals = {
+        ENVIRONMENT: '{{ environment }}',
+        EMAIL: '{{ email }}',
+        API_KEY: '{{ api_key }}',
+        // ...any other interesting variables from Django view's "context"
+      };
+    </script>
+
+    <!-- This div will inflate into the entire Vue.js application -->
+    <div id="app" />
+
+    <!-- Include app.js script from Vue build process -->
+    {% if environment == "production" %}
+    <script src="{% static 'js/app.js' %}"></script> <!-- For Production -->
+    {% else %}
+    <script src="{% static 'app.js' %}"></script> <!-- For Development -->
+    {% endif %}
+
+
+  </body>
+
+</html>

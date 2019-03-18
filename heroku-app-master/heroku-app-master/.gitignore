@@ -1,0 +1,8 @@
+*.pyc
+**/__pycache__
+.venv/
+node_modules/
+staticfiles/
+vue/static/
+.env
+db.sqlite3
